@@ -1,78 +1,152 @@
-import React, { useContext } from 'react'
+/* import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { UserProvider } from '../context/UserContext'
+import CottageTwoToneIcon from '@mui/icons-material/CottageTwoTone';
+import PaidIcon from '@mui/icons-material/Paid';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LoginIcon from '@mui/icons-material/Login';
 
 const SideBar = () => {
+   const [active, setActive] = useState(window.location.pathname)
    const { user, setUser } = useContext(UserProvider)
    console.log(user)
    return (
-      <>
-         <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-            <span className="sr-only">Open sidebar</span>
-            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-               <path d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-            </svg>
-         </button>
-
-         <aside id="default-sidebar" className="z-40 h-screen" aria-label="Sidebar">
-            <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-               <ul className="space-y-2 font-medium">
+         <div className="aside col-2 d-flex align-items-center">
+            <nav className='sideBar'>
+               <ul className='list d-flex justify-content-center flex-column gap-2'>
                   <li>
-                     <Link to="/" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        🏚️
-                        <span className="ml-3">Home</span>
+                     <Link to="/" className="link d-flex gap-2 btn" onClick={()=> setActive("home")}>
+                        <CottageTwoToneIcon/>
+                        <span>Home</span>
                      </Link>
                   </li>
                   <li>
-                     <Link to="/inversiones" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        💰
-                        <span className="ml-3">Inversiones</span>
+                     <Link to="/inversiones" className="link d-flex gap-2 btn">
+                        <PaidIcon/>
+                        <span>Inversiones</span>
                      </Link>
                   </li>
                   <li>
-                     <Link to="/resumen" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <Link to="/resumen" className="link d-flex gap-2 btn">
                         📒
-                        <span className="ml-3">Resumen</span>
+                        <span>Resumen</span>
                      </Link>
                   </li>
                   <li>
-                     <Link to="/noticias" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        📰
-                        <span className="ml-3">Noticias</span>
+                     <Link to="/noticias" className="link d-flex gap-2 btn">
+                        <NewspaperIcon/>
+                        <span>Noticias</span>
                      </Link>
                   </li>
                   <li>
-                     <Link to="/settings" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        ⚙️
+                     <Link to="/settings" className="link d-flex gap-2 btn">
+                        <SettingsIcon/>
                         <span className="flex-1 ml-3 whitespace-nowrap">Configuración</span>
                      </Link>
                   </li>
                   {!user && <>
                      <li>
-                        <Link to="/login" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           📥
+                        <Link to="/login" className="link d-flex gap-2 btn">
+                           <LoginIcon/>
                            <span className="flex-1 ml-3 whitespace-nowrap">Iniciar sesión</span>
                         </Link>
                      </li>
                      <li>
-                        <Link to="/register" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <Link to="/register" className="link d-flex gap-2 btn">
                            📝
                            <span className="flex-1 ml-3 whitespace-nowrap">Registrarse</span>
                         </Link>
                      </li>
                   </>}
                   {user && <li>
-                     <button onClick={()=> setUser(false)} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <button onClick={()=> setUser(false)} className="link d-flex gap-2 btn">
                         📥
                         <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
                      </button>
                   </li>}
                </ul>
-            </div>
-         </aside>
-
-      </>
+            </nav>
+         </div>
    )
 }
 
-export default SideBar
+export default SideBar */
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { UserProvider } from '../context/UserContext';
+import CottageTwoToneIcon from '@mui/icons-material/CottageTwoTone';
+import PaidIcon from '@mui/icons-material/Paid';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LoginIcon from '@mui/icons-material/Login';
+
+const SideBar = () => {
+   const { user, setUser } = useContext(UserProvider);
+   console.log(user);
+
+   return (
+     <div className="aside col-2 d-flex align-items-center">
+       <nav className='sideBar'>
+         <ul className='list d-flex justify-content-center flex-column gap-2'>
+           <li>
+             <NavLink to="/" className="link d-flex gap-2 btn" activeClassName="active">
+               <CottageTwoToneIcon/>
+               <span>Home</span>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/inversiones" className="link d-flex gap-2 btn" activeClassName="active">
+               <PaidIcon/>
+               <span>Inversiones</span>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/resumen" className="link d-flex gap-2 btn" activeClassName="active">
+               📒
+               <span>Resumen</span>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/noticias" className="link d-flex gap-2 btn" activeClassName="active">
+               <NewspaperIcon/>
+               <span>Noticias</span>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/settings" className="link d-flex gap-2 btn" activeClassName="active">
+               <SettingsIcon/>
+               <span className="flex-1 ml-3 whitespace-nowrap">Configuración</span>
+             </NavLink>
+           </li>
+           {!user && (
+             <>
+               <li>
+                 <NavLink to="/login" className="link d-flex gap-2 btn" activeClassName="active">
+                   <LoginIcon/>
+                   <span className="flex-1 ml-3 whitespace-nowrap">Iniciar sesión</span>
+                 </NavLink>
+               </li>
+               <li>
+                 <NavLink to="/register" className="link d-flex gap-2 btn" activeClassName="active">
+                   📝
+                   <span className="flex-1 ml-3 whitespace-nowrap">Registrarse</span>
+                 </NavLink>
+               </li>
+             </>
+           )}
+           {user && (
+             <li>
+               <button onClick={() => setUser(false)} className="link d-flex gap-2 btn">
+                 📥
+                 <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
+               </button>
+             </li>
+           )}
+         </ul>
+       </nav>
+     </div>
+   );
+}
+
+export default SideBar;

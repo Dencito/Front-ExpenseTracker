@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
+import { enviroments } from '../enviroments'
 
 const NewsList = () => {
     const [data, setData] = useState(null)
     const [search, setSearch] = useState("finanzas")
     useEffect(() => {
         const getNews = async () => {
-            const response = await fetch(`https://newsapi.org/v2/everything?q=${search}&apiKey=f9a948eea2cf4a61b60f108f3c9a68cd&language=es&sortBy=publishedAt`);
+            const response = await fetch(`https://newsapi.org/v2/everything?q=${search}&apiKey=${enviroments.apiKeyNews}&language=es&sortBy=publishedAt`);
             const data = await response.json()
             setData(data.articles)
         }
@@ -14,7 +15,7 @@ const NewsList = () => {
     }, [search])
     console.log(data)
     return (
-        <div className='container overflow-auto h-screen'>
+        <div className='content-general col-10'>
             <input type="text" onChange={(e)=> {setSearch(e.target.value)}} />
 
             <div className="flex gap-2 justify-center mt-5">

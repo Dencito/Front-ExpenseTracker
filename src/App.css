@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.content-general {
+    overflow: auto;
+    height: 100vh;
+}
+
+.link {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.list {
+    list-style: none;
+}
+
+
+.aside {
+    height: 100vh;
+    background: #d926a9;
+    & .sideBar {
+        & a {
+            color: white;  
+        }
+
+        & a:hover {
+            color: white !important;
+            background: #1f1f1f2b;
+        }
+    }
+}
+
+.active {
+    background-color: #26caf3 !important;
+}

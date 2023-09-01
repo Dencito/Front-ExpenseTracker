@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import FormLoginRegister from '../components/FormLoginRegister'
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 const Login = () => {
     const data = {
@@ -8,17 +9,17 @@ const Login = () => {
         password: "9823hinq7eqw0om123qmwdas123"
     }
     return (
-        <div className="overflow-auto h-screen flex w-full flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img className="mx-auto h-20 w-auto" src="https://cdn-icons-png.flaticon.com/512/5645/5645053.png" alt='nose'  />
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">Logeate pibe 😊</h2>
+        <div className="content-general col-10 d-flex flex-column align-items-center justify-content-center">
+            <div className="d-flex flex-column justify-content-center align-items-center gap-3">
+                <PersonPinIcon sx={{fontSize: "100px"}}/>
+                <h2 className="h1 text-bold">Logeate pibe 😊</h2>
             </div>
 
-            <div className="mt-10 mx-auto w-full sm:max-w-sm">
+            <div className='col-4 mx-auto'>
                 <FormLoginRegister type="Login" url="/auth/login" data={data} />
-                <p className="mt-10 text-center text-sm text-gray-500">
+                <p className="text-center">
                     You don't have an account yet?
-                    <Link to="/register" className="font-semibold leading-6 link-secondary"> Register</Link>
+                    <Link to="/register" className='ms-1' style={{color: "#d926a9"}}>Register</Link>
                 </p>
             </div>
         </div>

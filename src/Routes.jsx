@@ -8,7 +8,7 @@ import News from './pages/News'
 
 const RoutesApp = () => {
   return (
-    <div className="flex h-full">
+    <div className="d-flex">
       <BrowserRouter>
         <SideBar />
         <Routes>

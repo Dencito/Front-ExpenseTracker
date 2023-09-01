@@ -1,16 +1,25 @@
-import React from 'react'
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const AccordionHomeItem = ({ title, description }) => {
+const AccordionHomeItem = ({ data }) => {
     return (
-        <div className="collapse bg-base-200">
-            <input type="radio" name="my-accordion" />
-            <div className="collapse-title text-xl font-medium">
-                {title}
-            </div>
-            <div className="collapse-content">
-                <p>{description}</p>
-            </div>
-        </div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>{data.title}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {data.description}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>    
     )
 }
 

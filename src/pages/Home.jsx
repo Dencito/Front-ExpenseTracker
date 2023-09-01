@@ -9,8 +9,8 @@ const Home = () => {
   const user = useContext(UserProvider)
   console.log(user)
   return (
-    <div className='overflow-auto w-full bg-neutral h-screen'>
-      <div className="container">
+    <div className='content-general col-10'>
+      <div className="">
         <StartHome/>
         <MidHome/>
         <EndHome/>

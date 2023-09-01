@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -45,41 +46,13 @@ const FormLoginRegister = ({ type, url, data }) => {
 
     }
     return (
-        <form className="space-y-6 mx-auto" onSubmit={handleSubmit}>
-            {type === "Register" && <div>
-                <label htmlFor="username" className="block text-sm font-medium leading-6 text-secondary">username</label>
-                <div className="mt-2">
-                    <input id="username" name="username" onChange={(e) => setUserName(e.target.value)} type="username" className="block w-full rounded-md border-0 py-1.5 ps-3 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:text-secondary sm:text-sm sm:leading-6" />
-                </div>
-            </div>}
-
-            <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-secondary">Email address</label>
-                <div className="mt-2">
-                    <input id="email" name="email" onChange={(e) => setEmail(e.target.value)} type="email" className="block w-full rounded-md border-0 py-1.5 ps-3 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:text-secondary sm:text-sm sm:leading-6" />
-                </div>
-            </div>
-
-            <div>
-                <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-secondary">Password</label>
-                    {type === "Login" && <div className="text-sm">
-                        <Link href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</Link>
-                    </div>}
-                </div>
-                <div className="mt-2">
-                    <input id="password" onChange={(e) => setPassword(e.target.value)} name="password" type="password" className="block w-full rounded-md border-0 py-1.5 ps-3 pe-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:text-secondary sm:text-sm sm:leading-6" />
-                </div>
-            </div>
-
-            <div>
-                {error && <span>Error al logearte pibe</span>}
-                {success && <div className="alert alert-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>Successes 😊</span>
-                </div>}
-                {!success && <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{type === "Login" ? "Sign in" : "Sign up"}</button>}
-            </div>
+        <form className="d-flex flex-column gap-2 my-4 mx-auto" onSubmit={handleSubmit}>
+            {/* {type === "Register" &&
+                <TextField color='secondary' label="Username" variant="standard" onChange={(e) => setUserName(e.target.value)} />
+                } */}
+                <TextField label="Email" variant="standard" onChange={(e) => setEmail(e.target.value)}  />
+                <TextField type='password' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
+                <Button color="primary" variant="outlined" className='mt-3' type='submit'>{type}</Button>
         </form>
     )
 }

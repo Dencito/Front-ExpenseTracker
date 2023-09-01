@@ -24,7 +24,7 @@ const AccordionHomeList = () => {
             <h2 className='text-3xl my-5 font-bold'>Lorem ipsum dolor sit amet.</h2>
             {
                 data.map((item) => (
-                    <AccordionHomeItem key={item.id} title={item.title} description={item.description} />
+                    <AccordionHomeItem key={item.id} data={item} />
                 ))
             }
         </div>
