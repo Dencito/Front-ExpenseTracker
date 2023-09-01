@@ -21,19 +21,19 @@
 
 .aside {
     height: 100vh;
-    background: #d926a9;
+    background: #000000;
     & .sideBar {
         & a {
-            color: white;  
+            color: white !important;  
         }
 
         & a:hover {
             color: white !important;
-            background: #1f1f1f2b;
+            background: #e61b91;
         }
     }
 }
 
 .active {
-    background-color: #26caf3 !important;
+    background-color: #e61b91 !important;
 }

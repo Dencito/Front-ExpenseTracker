@@ -47,9 +47,9 @@ const FormLoginRegister = ({ type, url, data }) => {
     }
     return (
         <form className="d-flex flex-column gap-2 my-4 mx-auto" onSubmit={handleSubmit}>
-            {/* {type === "Register" &&
-                <TextField color='secondary' label="Username" variant="standard" onChange={(e) => setUserName(e.target.value)} />
-                } */}
+            {type === "Register" &&
+                <TextField label="Username" variant="standard" onChange={(e) => setUserName(e.target.value)} />
+                }
                 <TextField label="Email" variant="standard" onChange={(e) => setEmail(e.target.value)}  />
                 <TextField type='password' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
                 <Button color="primary" variant="outlined" className='mt-3' type='submit'>{type}</Button>
