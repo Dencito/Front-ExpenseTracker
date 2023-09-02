@@ -37,3 +37,12 @@
 .active {
     background-color: #e61b91 !important;
 }
+
+.alert {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    color: #fff;
+    padding: 2px;
+}
