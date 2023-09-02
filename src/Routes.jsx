@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import SideBar from './components/SideBar'
 import News from './pages/News'
+import Settings from './pages/Settings'
 
 const RoutesApp = () => {
   return (
@@ -16,6 +17,7 @@ const RoutesApp = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/noticias' element={<News />} />
+          <Route path='/configuracion' element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </div>

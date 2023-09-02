@@ -100,7 +100,7 @@ const Register = () => {
                     <Button color="primary" variant="outlined" className='mt-3' type='submit'>Register</Button>
                 </form>
                 <p className="text-center">
-                    I already have an account
+                    I already have an account?
                     <Link to="/login" className='ms-1' style={{ color: "#d926a9" }}>Login</Link>
                 </p>
             </div>

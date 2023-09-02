@@ -40,7 +40,7 @@ const SideBar = () => {
              </NavLink>
            </li>
            <li>
-             <NavLink to="/settings" className="link d-flex gap-2 btn" activeClassName="active">
+             <NavLink to="/configuracion" className="link d-flex gap-2 btn" activeClassName="active">
                <SettingsIcon/>
                <span className="flex-1 ml-3 whitespace-nowrap">Configuración</span>
              </NavLink>
