@@ -12,9 +12,9 @@ const SideBar = () => {
    console.log(user);
 
    return (
-     <div className="aside col-2 d-flex align-items-center">
+     <div className="aside col-1 col-sm-2 d-flex align-items-center">
        <nav className='sideBar'>
-         <ul className='list d-flex justify-content-center flex-column gap-2'>
+         <ul className='list d-none d-xl-flex justify-content-center flex-column gap-2'>
            <li>
              <NavLink to="/" className="link d-flex gap-2 btn" activeClassName="active">
                <CottageTwoToneIcon/>
@@ -70,7 +70,57 @@ const SideBar = () => {
              </li>
            )}
          </ul>
+         <ul className='list d-flex d-xl-none justify-content-center flex-column gap-2'>
+           <li>
+             <NavLink to="/" className="link d-flex gap-2 btn" activeClassName="active">
+               <CottageTwoToneIcon/>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/inversiones" className="link d-flex gap-2 btn" activeClassName="active">
+               <PaidIcon/>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/resumen" className="link d-flex gap-2 btn" activeClassName="active">
+               📒
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/noticias" className="link d-flex gap-2 btn" activeClassName="active">
+               <NewspaperIcon/>
+             </NavLink>
+           </li>
+           <li>
+             <NavLink to="/configuracion" className="link d-flex gap-2 btn" activeClassName="active">
+               <SettingsIcon/>
+             </NavLink>
+           </li>
+           {!user && (
+             <>
+               <li>
+                 <NavLink to="/login" className="link d-flex gap-2 btn" activeClassName="active">
+                   <LoginIcon/>
+                 </NavLink>
+               </li>
+               <li>
+                 <NavLink to="/register" className="link d-flex gap-2 btn" activeClassName="active">
+                   📝
+                 </NavLink>
+               </li>
+             </>
+           )}
+           {user && (
+             <li>
+               <button onClick={() => setUser(false)} className="link d-flex gap-2 btn">
+                 📥
+                 <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
+               </button>
+             </li>
+           )}
+         </ul>
        </nav>
+
      </div>
    );
 }
