@@ -21,7 +21,7 @@ const AccordionHomeList = () => {
     ]
     return (
         <div className="w-full flex flex-col gap-3 p-5">
-            <h2 className='text-3xl my-5 font-bold'>Lorem ipsum dolor sit amet.</h2>
+            <h2 className='text-3xl my-5 font-bold text-center'>Lorem ipsum dolor sit amet.</h2>
             {
                 data.map((item) => (
                     <AccordionHomeItem key={item.id} data={item} />

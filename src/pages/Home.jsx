@@ -9,7 +9,7 @@ const Home = () => {
   const user = useContext(UserProvider)
   console.log(user)
   return (
-    <div className='content-general col-11 col-sm-10'>
+    <div className='content-general col-10'>
       <div>
         <StartHome/>
         <MidHome/>

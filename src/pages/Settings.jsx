@@ -44,9 +44,9 @@ const Settings = () => {
     }
     return (
         <div className='content-general col-10 d-flex flex-column align-items-center justify-content-center py-5'>
-            <div className="col-5 mb-5 d-flex flex-column gap-5">
-                <div className='d-flex align-items-center'>
-                    <div className="col-5">
+            <div className="col-11 col-lg-6 mb-5 mx-auto d-flex flex-column gap-5 pt-5">
+                <div className='d-flex flex-column flex-lg-row align-items-center'>
+                    <div className="col-12 col-lg-5 d-flex justify-content-center">
                         {loading ? (
                             <Skeleton animation="wave" variant="circular" width={100} height={100} />
                         ) : (
@@ -57,7 +57,7 @@ const Settings = () => {
                             />
                         )}
                     </div>
-                    <div className="col-8 d-flex gap-2">
+                    <div className="ps-3 pt-4 col-12 col-lg-8 d-flex justify-content-center d-flex gap-2">
                         <Button color="primary" variant="outlined">Upload New</Button>
                         <Button color="primary" variant="outlined">Delete avatar</Button>
                     </div>

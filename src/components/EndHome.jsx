@@ -5,8 +5,8 @@ import { Button } from '@mui/material'
 const EndHome = () => {
     return (
         <>
-            <div className="d-flex my-5 align-items-center">
-                <div className="p-5 pt-5 col-6">
+            <div className="d-flex flex-column flex-lg-row my-5 align-items-center">
+                <div className="p-5 pt-5 col-12 col-lg-6">
                     <img width="100%" src="https://www.webwork-tracker.com/images/time-tracker-software/web_tracker/benefits-web-tracker.webp" alt="" />
                 </div>
                 <AccordionHomeList />

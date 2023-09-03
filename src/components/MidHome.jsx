@@ -3,18 +3,18 @@ import React from 'react'
 
 const MidHome = () => {
     return (
-        <div className="d-flex p-5 align-items-center">
-            <div className="p-5 col-5 col-lg-6">
-                <h2 className='mb-2 h2'>Lorem ipsum dolor sit amet consectetur, adipisicing elit?</h2>
+        <div className="d-flex flex-column flex-lg-row align-items-center">
+            <div className="p-5 col-12 col-sm-12 col-lg-6">
+                <h2 className='mb-2 h1'>Lorem ipsum dolor sit amet consectetur, adipisicing elit?</h2>
                 <p className='mb-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus suscipit odit quibusdam sapiente laudantium repellat blanditiis excepturi exercitationem sit ullam.</p>
                 <Button color="primary" variant="outlined">More...</Button>
             </div>
-            <div className="d-flex col-7 col-lg-6">
-                <div className="col-6">
+            <div className="d-flex p-3 flex-column flex-lg-row col-12 col-sm-10 col-lg-6">
+                <div className="col-12 col-lg-6">
                     <Card color="text-primary"/>
                     <Card color="text-secondary"/>
                 </div>
-                <div className="col-6">
+                <div className="col-12 col-lg-6">
                     <Card color="text-success"/>
                     <Card color="text-danger"/>
                 </div>
