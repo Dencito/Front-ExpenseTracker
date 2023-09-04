@@ -12,7 +12,7 @@ const SideBar = () => {
    console.log(user);
 
    return (
-     <div className="aside col-2 d-flex align-items-center">
+     <div className="aside col-2 d-none d-xl-flex align-items-center">
        <nav className='sideBar'>
          <ul className='list d-none d-xl-flex justify-content-center flex-column gap-2'>
            <li>

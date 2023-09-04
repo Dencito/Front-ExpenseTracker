@@ -63,7 +63,7 @@ const Login = () => {
             return error("Campo password debe tener mas de 6 caracteres.");
         }
         try {
-            const response = await fetch('https://54.172.163.47:5118/api/user/login', {
+            const response = await fetch('https://0gf6zyhfe4.execute-api.us-east-1.amazonaws.com/API/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
