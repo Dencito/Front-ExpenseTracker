@@ -4,22 +4,13 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { Button, TextField } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { enviroments } from '../enviroments';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
-    const error = (title) => toast.error(title, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-    });
 
-    const errorCatch = (title) => toast.error(title, {
+    const errorToast = (title) => toast.error(title, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -51,19 +42,19 @@ const Login = () => {
             }, 1500);
         }
         if (!email) {
-            return error("Campo email vacio");
+            return errorToast("Campo email vacio");
         } else if (!email.includes("@")) {
-            return error('Campo email debe de tener "@"');
+            return errorToast('Campo email debe de tener "@"');
         } else if (!email.includes(".")) {
-            return error('Campo email debe de tener punto " . "');
+            return errorToast('Campo email debe de tener punto " . "');
         }
         if (!password) {
-            return error("Campo password vacio");
+            return errorToast("Campo password vacio");
         } else if (password.length < 6) {
-            return error("Campo password debe tener mas de 6 caracteres.");
+            return errorToast("Campo password debe tener mas de 6 caracteres.");
         }
         try {
-            const response = await fetch('https://0gf6zyhfe4.execute-api.us-east-1.amazonaws.com/API/auth', {
+            const response = await fetch(`${enviroments.backend.urlLocal}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,9 +62,9 @@ const Login = () => {
                 body: JSON.stringify({ email, password }),
             });
             const data = await response.json()
-            data.errors !== null ? error(data?.errors[0]) : Successfull(data)
+            data.errors !== null ? errorToast(data?.errors[0]) : Successfull(data)
         } catch (error) {
-            errorCatch("Fallo el servidor")
+            errorToast("Fallo el servidor")
             console.log(error)
         }
 

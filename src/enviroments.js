@@ -1,4 +1,11 @@
 
 export const enviroments = {
-    apiKeyNews: "f9a948eea2cf4a61b60f108f3c9a68cd"
+    backend: {
+        url: process.env.REACT_APP_URL_BACK,
+        urlLocal: "http://54.172.163.47:5117/api"
+    },
+    news: {
+        url: process.env.REACT_APP_URL_NEWS,
+        apiKey: process.env.REACT_APP_API_KEY_NEWS
+    }
 }

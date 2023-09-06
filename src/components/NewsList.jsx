@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
 import { enviroments } from '../enviroments'
+import { Button } from '@mui/material'
 
 const NewsList = () => {
     const [data, setData] = useState(null)
     const [search, setSearch] = useState("finanzas")
+    const [searchValue, setSearchValue] = useState("")
     useEffect(() => {
         const getNews = async () => {
-            const response = await fetch(`https://newsapi.org/v2/everything?q=${search}&apiKey=${enviroments.apiKeyNews}&language=es&sortBy=publishedAt`);
+            const response = await fetch(`${enviroments.news.url}/everything?q=${search}&apiKey=${enviroments.news.apiKey}&language=es&sortBy=publishedAt`);
             const data = await response.json()
             setData(data.articles)
         }
@@ -16,16 +18,17 @@ const NewsList = () => {
     console.log(data)
     return (
         <div className='content-general col-10'>
-            <input type="text" onChange={(e)=> {setSearch(e.target.value)}} />
+            <input type="text" onChange={(e) => { setSearchValue(e.target.value) }} />
+                <Button color="primary" variant="outlined" onClick={() => setSearch(searchValue)}>Buscar</Button>
 
-            <div className="flex gap-2 justify-center mt-5">
-                <button className='btn btn-secondary btn-outline' onClick={() => setSearch("finanzas")}>Finanzas</button>
-                <button className='btn primary btn-outline' onClick={() => setSearch("criptomonedas")}>Criptomonedas</button>
-                <button className='btn btn-success btn-outline' onClick={() => setSearch("inversiones")}>Inversiones</button>
+            <div className="d-flex gap-2 justify-content-center my-5">
+                <Button color="primary" variant="outlined" onClick={() => setSearch("finanzas")}>Finanzas</Button>
+                <Button color="primary" variant="outlined" onClick={() => setSearch("criptomonedas")}>Criptomonedas</Button>
+                <Button color="primary" variant="outlined" onClick={() => setSearch("inversiones")}>Inversiones</Button>
             </div>
-            
 
-            <div className="flex flex-wrap">
+
+            <div className="d-flex flex-wrap">
                 {data?.map(item => (
                     <NewsItem key={item.url} data={item} query={search} />
                 ))}
