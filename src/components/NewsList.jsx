@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
 import { enviroments } from '../enviroments'
-import { Button } from '@mui/material'
+import { Button, TextField } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search';
 
 const NewsList = () => {
     const [data, setData] = useState(null)
@@ -15,16 +16,18 @@ const NewsList = () => {
         }
         getNews()
     }, [search])
-    console.log(data)
     return (
-        <div className='content-general col-10'>
-            <input type="text" onChange={(e) => { setSearchValue(e.target.value) }} />
-                <Button color="primary" variant="outlined" onClick={() => setSearch(searchValue)}>Buscar</Button>
-
-            <div className="d-flex gap-2 justify-content-center my-5">
+        <div className='content-general col-12 col-xl-10 mx-auto'>
+            <div className="d-flex flex-column align-items-center gap-3 justify-content-center my-5">
+            <div className='col-2 d-flex'>
+                <TextField variant="standard" type="search" onChange={(e) => { setSearchValue(e.target.value) }} />
+                <Button color="primary"  onClick={() => setSearch(searchValue)}> <SearchIcon /></Button>
+            </div>
+                <div className="d-flex gap-3 w-100 justify-content-center overflow-auto">
                 <Button color="primary" variant="outlined" onClick={() => setSearch("finanzas")}>Finanzas</Button>
                 <Button color="primary" variant="outlined" onClick={() => setSearch("criptomonedas")}>Criptomonedas</Button>
                 <Button color="primary" variant="outlined" onClick={() => setSearch("inversiones")}>Inversiones</Button>
+                </div>
             </div>
 
 

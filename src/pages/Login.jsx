@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { Link } from 'react-router-dom'
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { enviroments } from '../enviroments';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const errorToast = (title) => toast.error(title, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
@@ -23,7 +23,7 @@ const Login = () => {
 
     const success = (title) => toast.success(title, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
@@ -31,28 +31,30 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
     });
+    
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setLoading(true)
 
-        const Successfull = async (data) => {
-            setTimeout(async () => {
-                success("Logeadoo")
-                await window.localStorage.setItem("token", data.data);
-                await window.location.replace("/");
-            }, 1500);
-        }
         if (!email) {
-            return errorToast("Campo email vacio");
+            setLoading(false)
+            return errorToast("Campo email vacío");
         } else if (!email.includes("@")) {
-            return errorToast('Campo email debe de tener "@"');
+            setLoading(false)
+            return errorToast('Campo email debe contener "@"');
         } else if (!email.includes(".")) {
-            return errorToast('Campo email debe de tener punto " . "');
+            setLoading(false)
+            return errorToast('Campo email debe contener un punto "."');
         }
+
         if (!password) {
-            return errorToast("Campo password vacio");
+            setLoading(false)
+            return errorToast("Campo password vacío");
         } else if (password.length < 6) {
-            return errorToast("Campo password debe tener mas de 6 caracteres.");
+            setLoading(false)
+            return errorToast("Campo password debe tener al menos 6 caracteres");
         }
+
         try {
             const response = await fetch(`${enviroments.backend.urlLocal}/user/login`, {
                 method: 'POST',
@@ -61,30 +63,39 @@ const Login = () => {
                 },
                 body: JSON.stringify({ email, password }),
             });
-            const data = await response.json()
-            data.errors !== null ? errorToast(data?.errors[0]) : Successfull(data)
-        } catch (error) {
-            errorToast("Fallo el servidor")
-            console.log(error)
-        }
 
-    }
+            if (response.ok) {
+                const data = await response.json();
+                success("Logeado");
+                await window.localStorage.setItem("token", data.data);
+                window.location.replace("/");
+            } else {
+                setLoading(false)
+                const errorData = await response.json();
+                errorToast(errorData?.errors[0] || "Error desconocido");
+            }
+        } catch (error) {
+            setLoading(false)
+            errorToast("Fallo el servidor");
+            console.log(error);
+        }
+    };
 
     return (
-        <div className="content-general col-10 d-flex flex-column align-items-center justify-content-center">
+        <div className="content-general col-12 col-xl-10 d-flex mx-auto flex-column align-items-center justify-content-center">
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
                 <PersonPinIcon sx={{ fontSize: "100px" }} />
                 <h2 className="h1 text-bold">Logeate pibe 😊</h2>
             </div>
 
-            <div className='col-4 mx-auto'>
+            <div className='col-11 col-md-8 col-lg-6 col-xl-4 col-xxl-3 mx-auto'>
                 <form className="d-flex flex-column gap-2 my-4 mx-auto" onSubmit={handleSubmit}>
                     <div>
                         <ToastContainer />
                     </div>
                     <TextField label="Email" variant="standard" onChange={(e) => setEmail(e.target.value)} />
                     <TextField type='password' autoSave='false' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
-                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>Login</Button>
+                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : 'Login'}</Button>
                 </form>
                 <p className="text-center">
                     You don't have an account yet?

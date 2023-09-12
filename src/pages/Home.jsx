@@ -1,16 +1,12 @@
-import React, { useContext } from 'react'
 import Wave from 'react-wavify'
 import StartHome from '../components/StartHome'
 import MidHome from '../components/MidHome'
 import EndHome from '../components/EndHome'
-import { UserProvider } from '../context/UserContext'
 
 const Home = () => {
-  const user = useContext(UserProvider)
-  console.log(user)
   return (
     <>
-    <div className='content-general col-12 col-xl-10'>
+    <div className='content-general col-12 col-xl-10 mx-auto'>
       <div>
         <StartHome/>
         <MidHome/>

@@ -46,3 +46,10 @@
     color: #fff;
     padding: 2px;
 }
+
+.overflow-auto {
+    overflow: auto !important;
+}
+.overflow-hidden {
+    overflow: hidden !important;
+}
