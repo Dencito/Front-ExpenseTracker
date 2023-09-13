@@ -1,60 +1,6 @@
-/* Chatbot.css */
-/* Cambia el fondo del contenedor principal del chatbot */
 .chatbot-container {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 400px;
-    height: 500px;
-    margin: 0 auto;
-    overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: fixed;
     right: 0;
     bottom: 0;
-    padding-bottom: 50px;
-  }
-  
-  /* Modifica el estilo de los mensajes del chatbot */
-  .react-chatbot-kit-chat-bot-message {
-    background-color: #0084FF;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  /* Cambia el estilo del mensaje del usuario */
-  .react-chatbot-kit-user-chat-message {
-    background-color: #eee;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  /* Modifica el estilo del botón de enviar */
-  .react-chatbot-kit-chat-btn-send {
-    background-color: #0084FF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 15px;
-    cursor: pointer;
-  }
-  .react-chatbot-kit-chat-input-container {
-position: fixed;
-z-index: 9999;
-bottom: 0;
-  }
-  
-  /* Estiliza el campo de entrada de texto */
-  .react-chatbot-kit-chat-input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    width: 80%;
-    margin-right: 10px;
-  }
-
-  .react-chatbot-kit-user-avatar-icon {
-    width: 30px;
   }
