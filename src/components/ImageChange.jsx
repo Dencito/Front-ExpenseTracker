@@ -71,12 +71,14 @@ const signature = new Date()
                     </div>
                 )}
             </div>
-            <div className="ps-3 pt-4 col-12 col-lg-8 d-flex justify-content-center d-flex gap-2">
+            { loading ? <Skeleton animation="wave" variant="rect" height={40} /> : (<div className="ps-3 pt-4 col-12 col-lg-8 d-flex justify-content-center d-flex gap-2">
                 {!changeImage ? <Button color="primary" variant="outlined" onClick={()=> setChangeImage(true)}>Upload New</Button>: <>
                 <Button color="primary" variant="outlined" onClick={()=> handleImageUpload()}>Confirmar</Button>
                 <Button color="primary" variant="outlined" onClick={()=> setChangeImage(false)}>Cancel</Button>
                 </>}
-            </div>
+            </div> )
+            }
+            
         </div>
 
     )

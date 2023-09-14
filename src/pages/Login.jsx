@@ -35,7 +35,6 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-
         if (!email) {
             setLoading(false)
             return errorToast("Campo email vacío");
@@ -56,7 +55,7 @@ const Login = () => {
         }
 
         try {
-            const response = await fetch(`${enviroments.backend.urlLocal}/user/login`, {
+            const response = await fetch(`${enviroments.backend.url}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,7 +67,10 @@ const Login = () => {
                 const data = await response.json();
                 success("Logeado");
                 await window.localStorage.setItem("token", data.data);
-                window.location.replace("/");
+                setTimeout(() => { 
+                    window.location.replace("/");
+                 }, 1000)
+                
             } else {
                 setLoading(false)
                 const errorData = await response.json();
@@ -93,7 +95,7 @@ const Login = () => {
                     <div>
                         <ToastContainer />
                     </div>
-                    <TextField label="Email" variant="standard" onChange={(e) => setEmail(e.target.value)} />
+                    <TextField label="Email" type='email' variant="standard" onChange={(e) => setEmail(e.target.value)} />
                     <TextField type='password' autoSave='false' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
                     <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : 'Login'}</Button>
                 </form>

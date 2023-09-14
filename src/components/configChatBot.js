@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createChatBotMessage } from 'react-chatbot-kit';
+import { UserProvider } from '../context/UserContext';
 
-const user = "Denar"
 
 const config = {
   initialMessages: [createChatBotMessage(`Hola! Soy Expensi tu asistente virtual mucho gusto.`)],
@@ -28,8 +28,9 @@ const ResumenGraph = () => {
 };
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
+  const { user: { user } } = useContext(UserProvider);
   const handleHello = () => {
-    const botMessage = createChatBotMessage(`Hola! ${user}, En que puedo ayudarte?`);
+    const botMessage = createChatBotMessage(`Hola! ${user.username}, En que puedo ayudarte?`);
     const botMessage2 = createChatBotMessage(`1-Gastos Semanales`);
     const botMessage3 = createChatBotMessage(`2-Gastos mensuales`);
     const botMessage4 = createChatBotMessage(`3-Gastos anuales`);
@@ -60,7 +61,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   };
 
   const gastoSemanal = () => {
-    const botMessage = createChatBotMessage(`${user}, Su gasto total semanal es de: ${5000}`);
+    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total semanal es de: ${5000}`);
     const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
 
     setState((prev) => ({
@@ -76,7 +77,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   }
 
   const gastoMensual = () => {
-    const botMessage = createChatBotMessage(`${user}, Su gasto total mensual es de: ${500000}`);
+    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total mensual es de: ${500000}`);
     const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
 
     setState((prev) => ({
@@ -92,7 +93,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   }
 
   const gastoAnual = () => {
-    const botMessage = createChatBotMessage(`${user}, Su gasto total anual es de: ${50000000}`);
+    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total anual es de: ${50000000}`);
     const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
 
     setState((prev) => ({

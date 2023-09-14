@@ -1,34 +1,34 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
+import { toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 export const UserProvider = createContext(null)
 
 const UserContext = ({ children }) => {
-  const [user, setUser] = useState(false);
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const token = window.localStorage.getItem("token");
-        console.log(token)
-      const response = await fetch(`${enviroments.backend.urlLocal}/user/ValidateToken`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-      const { data } = await response.json()
-      if(response.ok) {
-        setUser(data)
-      } else {
-        setUser(false)
-      }
-      
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getUser();
-  }, []);
+  const token = window.localStorage.getItem("token");
+  const [user, setUser] = useState(token !== null);
+
+  const success = (title) => toast.success(title, {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+  const errorToast = (title) => toast.error(title, {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+
+    
   return (
     <UserProvider.Provider value={{ user, setUser }}>
       {children}

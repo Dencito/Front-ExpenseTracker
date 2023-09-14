@@ -71,6 +71,7 @@ const Register = () => {
                 window.location.replace("/");
             } else {
                 const errorData = await response.json();
+                setLoading(false)
                 errorToast(errorData?.errors[0] || "Error desconocido");
             }
         } catch (error) {
