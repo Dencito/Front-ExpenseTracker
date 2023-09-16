@@ -43,7 +43,7 @@ const Expenses = () => {
     const validateUser = async () => {
       try {
         const token = window.localStorage.getItem("token");
-      const response = await fetch(`${enviroments.backend.urlLocal}/user/ValidateToken`, {
+      const response = await fetch(`${enviroments.backend.urlLocal}/user/validatetoken`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

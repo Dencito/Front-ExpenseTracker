@@ -20,40 +20,42 @@ const Settings = () => {
     const [image, setImage] = useState("")
     const navigate = useNavigate()
 
+
+
     useEffect(() => {
         const validateUser = async () => {
             try {
-              const token = window.localStorage.getItem("token");
-            const response = await fetch(`${enviroments.backend.urlLocal}/user/ValidateToken`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ token }),
-            });
-            const {data: {user}} = await response.json()
-            setUser(true)
-            setUsername(user?.username)
-            setName(user?.name)
-            setLastName(user?.lastName)
-            setDni(user?.dni)
-            setGender(user?.gender)
-            setImage(user?.image)
-            setPhone(user?.phone)
-            setEmail(user?.email)
-            setLoading(false)
-            
-          } catch (error) {
-              console.log(error)
-              errorToast("Token invalido, volve a iniciar sesion, o hubo un error en el servidor")
-              setTimeout(() => { 
-                window.localStorage.removeItem("token")
-                setUser(false)
-                navigate("/login")
-               }, 2000)
+                const token = window.localStorage.getItem("token");
+                const response = await fetch(`${enviroments.backend.urlLocal}/user/validatetoken`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ token }),
+                });
+                const { data} = await response.json()
+                const user = data.user
+                setUser(data)
+                setUsername(user?.username)
+                setName(user?.name)
+                setLastName(user?.lastName)
+                setDni(user?.dni)
+                setGender(user?.gender)
+                setImage(user?.image)
+                setPhone(user?.phone)
+                setEmail(user?.email)
+                setLoading(false)
+            } catch (error) {
+                console.log(error)
+                
+                setTimeout(() => {
+                    window.localStorage.removeItem("token")
+                    setUser(false)
+                    navigate("/login")
+                }, 2000)
             }
-          }
-          validateUser()
+        }
+        validateUser()
     }, []);
 
     const success = (title) => toast.success(title, {
@@ -103,12 +105,12 @@ const Settings = () => {
                 },
                 body: JSON.stringify(bodyOptions),
             });
-            const {data} = await response.json()
-            if(data) {
+            const { data } = await response.json()
+            if (data) {
                 success("Cambios realizados")
                 setUpdateState(true)
             }
-            if(data.error) {
+            if (data.error) {
                 errorToast("complete los campos")
             }
 
@@ -121,7 +123,7 @@ const Settings = () => {
     return (
         <div className='content-general col-12 col-lg-10 mx-auto d-flex flex-column align-items-center justify-content-center py-5'>
             <div className="col-11 col-lg-6 mb-5 mx-auto d-flex flex-column gap-5 pt-5">
-                    <ImageChange loading={loading} username={username} image={image} />
+                <ImageChange loading={loading} username={username} image={image} />
                 <div className="col-12 d-flex justify-content-between">
                     <div className="col-5">
                         {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={updateState} label="Nombre:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setName(e.target.value)} defaultValue={name} />}

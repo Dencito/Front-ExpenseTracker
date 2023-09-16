@@ -22,9 +22,9 @@ const RoutesApp = () => {
           <Route path='/login' element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path='/register' element={!user ? <Register /> : <Navigate to="/" />} />
           <Route path='/noticias' element={<News />} />
-          <Route path='/gastos' element={user ? <Expenses /> : <Login/>} />
-          <Route path='/resumen' element={<Resume/>} />
-          <Route path='/configuracion' element={user ? <Settings /> : <Login/>} />
+          <Route path='/gastos' element={user ? <Expenses /> : <Navigate to="/login" />} />
+          <Route path='/resumen' element={user ? <Resume /> : <Navigate to="/login" />} />
+          <Route path='/configuracion' element={user ? <Settings /> : <Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </div>

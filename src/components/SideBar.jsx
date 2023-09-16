@@ -59,7 +59,7 @@ const [drawerOpen, setDrawerOpen] = useState(false)
                 </NavLink>
               </li>
               <li>
-                <NavLink onClick={() => logout()} to="/register" className="link d-flex gap-2 btn" activeClassName="active">
+                <NavLink onClick={() => logout()} to="/login" className="link d-flex gap-2 btn" activeClassName="active">
                   <LogoutIcon />
                   <span className="flex-1 ml-3 whitespace-nowrap">Logout</span>
                 </NavLink>

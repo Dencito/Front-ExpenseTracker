@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createChatBotMessage } from 'react-chatbot-kit';
 import { UserProvider } from '../context/UserContext';
+import Bars from './BarsGraph';
+import { enviroments } from '../enviroments';
 
 
 const config = {
@@ -23,12 +25,77 @@ const config = {
 };
 const ResumenGraph = () => {
   return (
-    <img src="https://www.tibco.com/sites/tibco/files/media_entity/2022-01/PieChart-01.svg" width="100%" alt='a dog' />
+    <div style={{ width: "100%", height: "300px", overflow: "auto" }}>
+      <Bars />
+    </div>
   );
 };
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
-  const { user: { user } } = useContext(UserProvider);
+  const { user } = useContext(UserProvider);
+  const [expenses, setExpenses] = useState([])
+  useEffect(() => {
+    const getExpenses = async () => {
+      try {
+        const token = window.localStorage.getItem("token");
+        const response = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
+        const dataExpenses = await response.json()
+        setExpenses(dataExpenses?.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getExpenses()
+  }, [])
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth();
+  const currentWeek = getWeekNumber(today);
+
+  function getWeekNumber(date) {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + 3 - ((d.getDay() + 6) % 7));
+    const week1 = new Date(d.getFullYear(), 0, 4);
+    return 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+  }
+
+  const weeklyExpenses = expenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+    const expenseYear = expenseDate.getFullYear();
+    const expenseMonth = expenseDate.getMonth();
+    const expenseWeek = getWeekNumber(expenseDate);
+
+    return (
+      expenseYear === currentYear &&
+      expenseMonth === currentMonth &&
+      expenseWeek === currentWeek
+    );
+  });
+
+  const monthlyExpenses = expenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+    const expenseYear = expenseDate.getFullYear();
+    const expenseMonth = expenseDate.getMonth();
+
+    return (
+      expenseYear === currentYear &&
+      expenseMonth === currentMonth
+    );
+  });
+
+  const yearlyExpenses = expenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+    const expenseYear = expenseDate.getFullYear();
+
+    return expenseYear === currentYear;
+  });
   const handleHello = () => {
     const botMessage = createChatBotMessage(`Hola! ${user.username}, En que puedo ayudarte?`);
     const botMessage2 = createChatBotMessage(`1-Gastos Semanales`);
@@ -61,8 +128,14 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   };
 
   const gastoSemanal = () => {
-    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total semanal es de: ${5000}`);
-    const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
+    const totalSemanal = weeklyExpenses.reduce(
+      (total, expense) => total + expense.amount,
+      0
+    );
+    const botMessage = createChatBotMessage(
+      `${user?.username}, ${totalSemanal == 0 ? "Usted no tiene ningun gasto esta semana" : `Su gasto total semanal es de: ${totalSemanal.toLocaleString()} Pesos`}`
+    );
+    const botMessage2 = createChatBotMessage(`4-Para volver al menú`);
 
     setState((prev) => ({
       ...prev,
@@ -73,12 +146,18 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         ...prev,
         messages: [...prev.messages, botMessage2],
       }));
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   const gastoMensual = () => {
-    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total mensual es de: ${500000}`);
-    const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
+    const totalMensual = monthlyExpenses.reduce(
+      (total, expense) => total + expense.amount,
+      0
+    );
+    const botMessage = createChatBotMessage(
+      `${user?.username}, ${totalMensual == 0 ? "Usted no tiene ningun gasto este mes" : `Su gasto total mensual es de: ${totalMensual.toLocaleString()}`}`
+    );
+    const botMessage2 = createChatBotMessage(`4-Para volver al menú`);
 
     setState((prev) => ({
       ...prev,
@@ -89,12 +168,18 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         ...prev,
         messages: [...prev.messages, botMessage2],
       }));
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   const gastoAnual = () => {
-    const botMessage = createChatBotMessage(`${user?.username}, Su gasto total anual es de: ${50000000}`);
-    const botMessage2 = createChatBotMessage(`4-Para volver al menu`);
+    const totalAnual = yearlyExpenses.reduce(
+      (total, expense) => total + expense.amount,
+      0
+    );
+    const botMessage = createChatBotMessage(
+      `${user?.username}, ${totalAnual==0 ? "Usted no tiene ningun gasto este Año" : `Su gasto total anual es de: ${totalAnual.toLocaleString()}`}`
+    );
+    const botMessage2 = createChatBotMessage(`4-Para volver al menú`);
 
     setState((prev) => ({
       ...prev,
@@ -105,8 +190,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         ...prev,
         messages: [...prev.messages, botMessage2],
       }));
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   const menu = () => {
     const botMessage = createChatBotMessage(`1-Gastos Semanales`);
@@ -170,7 +255,7 @@ const MessageParser = ({ children, actions }) => {
     message = message.toLowerCase();
 
     if (message.includes('hola') || message.includes('hi') || !message) {
-        actions.handleHello();
+      actions.handleHello();
     }
 
     if (message.includes('menu') || message.includes('4')) {
