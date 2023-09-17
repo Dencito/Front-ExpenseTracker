@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 import GraphLine from '../components/Graph';
 import PieChart from '../components/PieGraph';
+import { CircularProgress } from '@mui/material';
 
 const Resume = () => {
   const { setUser } = useContext(UserProvider);
@@ -68,7 +69,10 @@ const Resume = () => {
     <div style={{width: "800px", height: "600px"}}>
     <PieChart/>
     </div>
-  </div> : "cargandoo"}
+  </div> : 
+  <div className='d-flex justify-content-center align-items-center content-general col-12 col-xl-10'>
+    <CircularProgress color="warning" />
+    </div>}
   </>
   )
 }

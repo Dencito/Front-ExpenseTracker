@@ -5,8 +5,8 @@
 }
 
 .content-general {
-    overflow: auto;
-    height: 100vh;
+    overflow: auto !important;
+    height: 100vh !important;
 }
 
 .link {

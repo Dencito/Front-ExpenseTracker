@@ -33,7 +33,7 @@ export default function Pies() {
                 const token = window.localStorage.getItem("token");
 
                 // Obtener las categorías
-                const responseCategories = await fetch(`${enviroments.backend.urlLocal}/expenseCategory`, {
+                const responseCategories = await fetch(`${enviroments.backend.urlLocal}/expensecategory`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default function Pies() {
                 setCategories(dataCategories?.data);
 
                 // Obtener los gastos
-                const responseExpenses = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
+                const responseExpenses = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

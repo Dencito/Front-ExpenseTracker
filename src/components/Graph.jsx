@@ -73,7 +73,7 @@ export default function GraphLine({filtro}) {
         const getExpenses = async () => {
             try {
                 const token = window.localStorage.getItem("token");
-                const response = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
+                const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

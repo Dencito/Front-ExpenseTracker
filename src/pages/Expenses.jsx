@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserProvider } from '../context/UserContext';
 import { enviroments } from '../enviroments';
 import { ToastContainer, toast } from 'react-toastify';
-import { Button, Fade, InputLabel, MenuItem, Select, TextField, Modal, Box } from '@mui/material';
+import { Button, Fade, InputLabel, MenuItem, Select, TextField, Modal, Box, CircularProgress, Card } from '@mui/material';
 import moment from "moment"
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +68,7 @@ const Expenses = () => {
     const getExpenses = async () => {
       try {
         const token = window.localStorage.getItem("token");
-        const response = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
+        const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ const Expenses = () => {
     const getCategories = async () => {
       const token = window.localStorage.getItem("token");
       try {
-        const responseCategories = await fetch(`${enviroments.backend.urlLocal}/expenseCategory`, {
+        const responseCategories = await fetch(`${enviroments.backend.urlLocal}/expensecategory`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ const Expenses = () => {
     validateUser()
     getCategories()
     getExpenses()
-  }, [])
+  }, [modalOpen])
 
   const createExpense = async () => {
     const token = window.localStorage.getItem("token");
@@ -110,7 +110,7 @@ const Expenses = () => {
       date,
       description: title
     }
-    const response = await fetch(`${enviroments.backend.urlLocal}/expense`, {
+    const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,9 +119,11 @@ const Expenses = () => {
       body: JSON.stringify(bodyOptions),
     });
     const data = await response.json()
-    if (data.ok) {
-      success("Gasto creado")
-    }
+    setModalOpen(false)
+    setTitle("")
+    setDate("")
+    setCategoryID("")
+    success("Gasto creado")
   }
   const style = {
     position: 'absolute',
@@ -135,26 +137,62 @@ const Expenses = () => {
     p: 4,
   };
 
+  
+  console.log(categories)
+  const findCategory = (id)=> {
+    const findCategory = categories?.find(category=> category.id === id)
+    return findCategory?.categoryName
+  }
+
+  const getCategoryNameAndExpenses = (id) => {
+    const category = categories?.find((category) => category.id === id);
+    const categoryName = category?.categoryName;
+    const categoryExpenses = expenses?.filter((expense) => expense.categoryID === id);
+  
+    return {
+      categoryName,
+      categoryExpenses,
+    };
+  };
+
+  const categoryData = expenses
+  ? [...new Set(expenses.map((expense) => expense.categoryID))].map((categoryId) =>
+      getCategoryNameAndExpenses(categoryId)
+    )
+  : [];
+
   if(!loading){
     return (
-     <>
-    <h1>Holaaaaaaaaaaaaaaaaaa</h1>
-     </>
+      <div className='d-flex justify-content-center align-items-center content-general col-12 col-xl-10'>
+      <CircularProgress color="warning" />
+      </div>
     )
   }
   return (
-    <div className='content-general col-12 col-lg-10 mx-auto d-flex flex-column align-items-center justify-content-center py-5'>
-      <div className="d-flex flex-column">
+    <div className='content-general col-12 col-lg-10 mx-auto d-flex flex-column align-items-center justify-content-center pt-5'>
+      <div className="d-flex flex-column pt-5">
       <ToastContainer />
-        <div className='d-flex gap-5'>
-          {expenses?.map((expense) => (
-            <div className='d-flex flex-column'>
-              <p>{expense.description}</p>
-              <p>{expense.amount}</p>
-              <p>{moment(expense.date).format("DD-MM-YY")}</p>
-            </div>
-          ))}
-        </div>
+        {
+         !categoryData?.length ? <div>
+        <h1>No tiene ningun gasto creado</h1>
+         </div> : <div className='d-flex gap-3 overflow-auto p-3'>
+         {categoryData.map((category) => (
+           <Card key={category.categoryName} className="pb-1">
+             <h3 className='px-3'>{category?.categoryName}</h3>
+             <div style={{height: "500px", overflow: "auto", padding: "5px"}}>
+             {category?.categoryExpenses.map(expense=> (
+               <Card className='d-flex flex-column p-1 mb-1'>
+                 <span>{expense.description}</span>
+                 <span>{expense.amount.toLocaleString()}</span>
+                 <span>{moment(expense.date).format("DD.MM.YY")}</span>
+             </Card>
+             ))}
+             </div>
+           </Card>
+         ))}
+ 
+         </div>
+        }
         <Button onClick={() => setModalOpen(true)}>Crear</Button>
         <Modal
           aria-labelledby="spring-modal-title"
