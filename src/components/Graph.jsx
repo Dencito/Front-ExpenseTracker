@@ -32,7 +32,6 @@ export default function GraphLine({filtro}) {
         "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     ];
-
     const initialData = {
         labels: meses,
         datasets: [
@@ -49,6 +48,7 @@ export default function GraphLine({filtro}) {
             },
         ],
     };
+    const [data, setData] = useState(initialData);
 
     const options = {
         scales: {
@@ -66,14 +66,11 @@ export default function GraphLine({filtro}) {
             },
         },
     };
-
-    const [data, setData] = useState(initialData);
-
     useEffect(() => {
         const getExpenses = async () => {
             try {
                 const token = window.localStorage.getItem("token");
-                const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
+                const response = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -88,7 +85,7 @@ export default function GraphLine({filtro}) {
                     labels,
                     datasets: [
                         {
-                            ...initialData.datasets[0],
+                            ...initialData?.datasets[0],
                             data: processedData,
                         },
                     ],
@@ -96,6 +93,7 @@ export default function GraphLine({filtro}) {
 
                 setExpenses(dataExpenses?.data);
             } catch (error) {
+                console.log("llega aca")
                 console.log(error);
             }
         };

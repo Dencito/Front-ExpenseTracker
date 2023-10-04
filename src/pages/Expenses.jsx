@@ -52,7 +52,6 @@ const Expenses = () => {
       });
       const {data} = await response.json()
       setUser(true)
-        setLoading(true)
       
     } catch (error) {
         errorToast("error del servidor")
@@ -68,7 +67,7 @@ const Expenses = () => {
     const getExpenses = async () => {
       try {
         const token = window.localStorage.getItem("token");
-        const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
+        const response = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -77,6 +76,7 @@ const Expenses = () => {
         });
         const dataExpenses = await response.json()
         setExpenses(dataExpenses?.data)
+        setLoading(true)
       } catch (error) {
         console.log(error)
       }
@@ -110,7 +110,7 @@ const Expenses = () => {
       date,
       description: title
     }
-    const response = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
+    const response = await fetch(`${enviroments.backend.urlLocal}/expense`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,6 +119,7 @@ const Expenses = () => {
       body: JSON.stringify(bodyOptions),
     });
     const data = await response.json()
+    console.log(data)
     setModalOpen(false)
     setTitle("")
     setDate("")
@@ -145,8 +146,7 @@ const Expenses = () => {
   }
 
   const getCategoryNameAndExpenses = (id) => {
-    const category = categories?.find((category) => category.id === id);
-    const categoryName = category?.categoryName;
+    const categoryName = findCategory(id)
     const categoryExpenses = expenses?.filter((expense) => expense.categoryID === id);
   
     return {
@@ -181,7 +181,7 @@ const Expenses = () => {
              <h3 className='px-3'>{category?.categoryName}</h3>
              <div style={{height: "500px", overflow: "auto", padding: "5px"}}>
              {category?.categoryExpenses.map(expense=> (
-               <Card className='d-flex flex-column p-1 mb-1'>
+               <Card key={expense.id} className='d-flex flex-column p-1 mb-1'>
                  <span>{expense.description}</span>
                  <span>{expense.amount.toLocaleString()}</span>
                  <span>{moment(expense.date).format("DD.MM.YY")}</span>

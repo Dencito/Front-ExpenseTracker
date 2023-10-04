@@ -44,7 +44,7 @@ export default function Pies() {
                 setCategories(dataCategories?.data);
 
                 // Obtener los gastos
-                const responseExpenses = await fetch(`${enviroments.backend.urlLocal}/expense-user`, {
+                const responseExpenses = await fetch(`${enviroments.backend.urlLocal}/expense/user`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
