@@ -10,7 +10,7 @@ const NewsList = () => {
     const [searchValue, setSearchValue] = useState("")
     useEffect(() => {
         const getNews = async () => {
-            const response = await fetch(`${enviroments.news.url}/everything?q=${search}&apiKey=${enviroments.news.apiKey}&language=es&sortBy=publishedAt`);
+            const response = await fetch(`${enviroments.backend.url}/news?apiKey=${enviroments.news.apiKey}&q=${search}&language=es&sortBy=publishedAt`);
             const data = await response.json()
             setData(data.articles)
         }

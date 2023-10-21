@@ -80,11 +80,12 @@ const Register = () => {
             console.log(error)
         }
     }
+    
     return (
         <div className="content-general col-12 col-xl-10 d-flex mx-auto flex-column align-items-center justify-content-center">
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
                 <PersonPinIcon sx={{ fontSize: "100px" }} />
-                <h2 className="h1 text-bold">Registrate pibe 😊</h2>
+                <h2 className="h1 text-bold">Registrate</h2>
             </div>
 
             <div className='col-11 col-md-8 col-lg-6 col-xl-4 col-xxl-3 mx-auto'>

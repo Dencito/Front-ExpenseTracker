@@ -2,7 +2,6 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 import React from 'react'
 
 const NewsItem = ({ data, query }) => {
-  console.log(data)
   const category = query.charAt(0).toUpperCase() + query.slice(1)
   return (
   <Card sx={{ maxWidth: 300, margin: "auto" }}>

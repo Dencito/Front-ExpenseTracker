@@ -146,20 +146,20 @@ const Expenses = () => {
   }
 
   const getCategoryNameAndExpenses = (id) => {
-    const categoryName = findCategory(id)
-    const categoryExpenses = expenses?.filter((expense) => expense.categoryID === id);
-  
+    const categoryName = findCategory(id);
+    const categoryExpenses = expenses
+      .filter((expense) => expense.categoryID === id)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
     return {
       categoryName,
       categoryExpenses,
     };
   };
-
   const categoryData = expenses
-  ? [...new Set(expenses.map((expense) => expense.categoryID))].map((categoryId) =>
-      getCategoryNameAndExpenses(categoryId)
-    )
-  : [];
+    ? [...new Set(expenses.map((expense) => expense.categoryID))].map((categoryId) =>
+        getCategoryNameAndExpenses(categoryId)
+      )
+    : [];
 
   if(!loading){
     return (

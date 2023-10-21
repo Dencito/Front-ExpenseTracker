@@ -122,8 +122,8 @@ const Settings = () => {
 
     return (
         <div className='content-general col-12 col-lg-10 mx-auto d-flex flex-column align-items-center justify-content-center py-5'>
-            <div className="col-11 col-lg-6 mb-5 mx-auto d-flex flex-column gap-5 pt-5">
-                <ImageChange loading={loading} username={username} image={image} />
+            <div className="col-11 col-lg-6 mx-auto d-flex flex-column gap-5">
+                <ImageChange loading={loading} username={username} email={email} />
                 <div className="col-12 d-flex justify-content-between">
                     <div className="col-5">
                         {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={updateState} label="Nombre:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setName(e.target.value)} defaultValue={name} />}
@@ -134,7 +134,7 @@ const Settings = () => {
                 </div>
                 <div className="col-12 d-flex justify-content-between">
                     <div className="col-6">
-                        {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={updateState} label="Emaiil:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setEmail(e.target.value)} defaultValue={email} error={(!email.includes("@") || !email.includes("."))} helperText={(!email.includes("@") || !email.includes(".")) && "El Email debe contener @ y ."} />}
+                        {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={true} label="Emaiil:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setEmail(e.target.value)} defaultValue={email} error={(!email.includes("@") || !email.includes("."))} helperText={(!email.includes("@") || !email.includes(".")) && "El Email debe contener @ y ."} />}
                     </div>
                     <div className="col-5">
                         {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField type='number' disabled={updateState} label="Telefono:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setPhone(e.target.value)} defaultValue={phone} error={phone?.length !== 10} helperText={phone?.length !== 10 && "El telefono debe de tener 10 digitos."} />}
