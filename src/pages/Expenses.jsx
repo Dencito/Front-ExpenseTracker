@@ -124,7 +124,7 @@ const Expenses = () => {
       body: JSON.stringify(bodyOptions),
     });
     const data = await response.json()
-    if(data.ok) {
+    if(data.data) {
       success("Gasto creado")
       setModalOpen(false)
       setTitle("")
@@ -132,7 +132,8 @@ const Expenses = () => {
       setDate("")
       setCategoryID("")
     }
-    !data.ok && errorToast("No se pudo crear el gasto")
+    console.log(data)
+    data.errors && errorToast("No se pudo crear el gasto")
   }
   const style = {
     position: 'absolute',

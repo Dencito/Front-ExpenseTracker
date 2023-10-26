@@ -81,9 +81,9 @@ const Resume = () => {
   }
 
   return (<>
-    {loading ? <div className='content-general col-12 col-xl-10 d-flex flex-column justify-content-center align-items-center'>
+    {loading ? <div className='content-general col-12 col-xl-10 d-flex flex-column align-items-center'>
       {
-        !expenses?.length ? <div className='d-flex flex-column justify-content-center align-items-center'>
+        !expenses?.length ? <div className='d-flex flex-column align-items-center'>
           <h1>No tenes ningun gasto creado</h1>
           <Link className='link' to="/gastos" style={{ color: "#d926a9" }}>Crear Gasto</Link>
         </div> : <div>
