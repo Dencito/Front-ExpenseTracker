@@ -9,7 +9,6 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const [resetPassword, setResetPassword] = useState(false)
 
     const errorToast = (title) => toast.error(title, {
         position: "top-right",
@@ -32,31 +31,6 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
     });
-
-    const resetPasswordMail = async (email) => {
-        try {
-            const response = await fetch(`${enviroments.backend.urlLocal}/user/resetpassword`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({email}),
-            });
-            console.log(response)
-            if (response.ok) {
-                const data = await response.json();
-                setLoading(false)
-                success("se envio un correo con la nueva contraseña autogenerada")
-                
-            } else {
-                setLoading(false)
-                const errorData = await response.json();
-                errorToast(errorData?.errors[0] || "Error desconocido");
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,10 +44,6 @@ const Login = () => {
         } else if (!email.includes(".")) {
             setLoading(false)
             return errorToast('Campo email debe contener un punto "."');
-        }
-
-        if(resetPassword){
-            return resetPasswordMail(email)
         }
 
         if (!password) {
@@ -117,7 +87,7 @@ const Login = () => {
         <div className="content-general col-12 col-xl-10 d-flex mx-auto flex-column align-items-center justify-content-center">
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
                 <PersonPinIcon sx={{ fontSize: "100px" }} />
-                <h2 className="h1 text-bold">{!resetPassword ? "Login": "Reset password"}</h2>
+                <h2 className="h1 text-bold">Login</h2>
             </div>
 
             <div className='col-11 col-md-8 col-lg-6 col-xl-4 col-xxl-3 mx-auto'>
@@ -126,13 +96,14 @@ const Login = () => {
                         <ToastContainer />
                     </div>
                     <TextField label="Email" type='email' variant="standard" onChange={(e) => setEmail(e.target.value)} />
-                    {!resetPassword ? (<TextField type='password' autoSave='false' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />) : ""}
-                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : !resetPassword ? 'Login': "send mail new password"}</Button>
+                    <TextField type='password' autoSave='false' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
+                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : 'Login'}</Button>
                 </form>
                 <p className="text-center">
-                    You don't have an account yet?
-                    <Link to="/register" className='ms-1' style={{ color: "#d926a9" }}>Register </Link> or
-                    <Button color="secondary" onClick={()=> setResetPassword(true)} variant="contained" className='mt-3' type='submit'>Reset password</Button>
+                    No tenes una cuenta?
+                    <Link to="/register" className='ms-1' style={{ color: "#d926a9" }}>Registrate</Link> |
+                    En caso de haberla olvidado 
+                    <Link to="/reset-password" className='ms-1' style={{ color: "#d926a9" }}>Recuperar contraseña</Link>
                 </p>
             </div>
         </div>

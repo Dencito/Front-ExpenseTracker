@@ -9,6 +9,7 @@ import Settings from './pages/Settings';
 import { UserProvider } from './context/UserContext';
 import Expenses from './pages/Expenses';
 import Resume from './pages/Resume';
+import ResetPassword from './pages/ResetPassword';
 
 const RoutesApp = () => {
   const { user } = useContext(UserProvider);
@@ -21,6 +22,7 @@ const RoutesApp = () => {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path='/register' element={!user ? <Register /> : <Navigate to="/" />} />
+          <Route path='/reset-password' element={!user ? <ResetPassword /> : <Navigate to="/" />} />
           <Route path='/noticias' element={<News />} />
           <Route path='/gastos' element={user ? <Expenses /> : <Navigate to="/login" />} />
           <Route path='/resumen' element={user ? <Resume /> : <Navigate to="/login" />} />

@@ -38,7 +38,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     const getExpenses = async () => {
       try {
         const token = window.localStorage.getItem("token");
-        const response = await fetch(`${enviroments.backend.urlLocal}/user/expense-user`, {
+        const response = await fetch(`${enviroments.backend.urlLocal}/expense`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

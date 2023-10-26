@@ -10,12 +10,13 @@ const NewsList = () => {
     const [searchValue, setSearchValue] = useState("")
     useEffect(() => {
         const getNews = async () => {
-            const response = await fetch(`${enviroments.backend.url}/news?apiKey=${enviroments.news.apiKey}&q=${search}&language=es&sortBy=publishedAt`);
+            const response = await fetch(`${enviroments.backend.url}?q=${search}&apiKey=${enviroments.news.apiKey}&language=es&sortBy=publishedAt`);
             const data = await response.json()
             setData(data.articles)
         }
         getNews()
     }, [search])
+    console.log(enviroments.news.apiKey)
     return (
         <div className='content-general col-12 col-xl-10 mx-auto'>
             <div className="d-flex flex-column align-items-center gap-3 justify-content-center my-5">

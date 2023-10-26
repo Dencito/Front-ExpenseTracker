@@ -122,8 +122,8 @@ const Settings = () => {
 
     return (
         <div className='content-general col-12 col-lg-10 mx-auto d-flex flex-column align-items-center justify-content-center py-5'>
-            <div className="col-11 col-lg-6 mx-auto d-flex flex-column gap-5">
-                <ImageChange loading={loading} username={username} email={email} />
+            <div className="col-11 col-lg-6 mb-5 mx-auto d-flex flex-column gap-5 pt-5">
+                {/* <ImageChange loading={loading} username={username} image={image} /> */}
                 <div className="col-12 d-flex justify-content-between">
                     <div className="col-5">
                         {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={updateState} label="Nombre:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setName(e.target.value)} defaultValue={name} />}

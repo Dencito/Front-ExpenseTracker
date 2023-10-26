@@ -5,10 +5,8 @@ import { Button, CircularProgress, TextField } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 
-const Register = () => {
-    const [username, setUsername] = useState("");
+const ResetPassword = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
     const errorToast = (title) => toast.error(title, {
@@ -35,10 +33,6 @@ const Register = () => {
     const handleSubmit = async (e) => {
         setLoading(true)
         e.preventDefault()
-        if (!username) {
-            setLoading(false)
-            return errorToast("Campo username vacio");
-        }
         if (!email) {
             setLoading(false)
             return errorToast("Campo email vacio");
@@ -49,26 +43,18 @@ const Register = () => {
             setLoading(false)
             return errorToast('Campo email debe de tener punto " . "');
         }
-        if (!password) {
-            setLoading(false)
-            return errorToast("Campo password vacio");
-        } else if (password.length < 6) {
-            setLoading(false)
-            return errorToast("Campo password debe tener mas de 6 caracteres.");
-        }
         try {
-            const response = await fetch(`${enviroments.backend.urlLocal}/user/register`, {
+            const response = await fetch(`${enviroments.backend.urlLocal}/user/resetpassword?email=${email}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, username }),
+                body: JSON.stringify({ email }),
             });
             if (response.ok) {
                 const data = await response.json();
-                success("Registrado");
-                await window.localStorage.setItem("token", data.data);
-                window.location.replace("/");
+                success("Se envio un correo con la nueva contraseña");
+                window.location.replace("/login");
             } else {
                 const errorData = await response.json();
                 setLoading(false)
@@ -84,7 +70,7 @@ const Register = () => {
         <div className="content-general col-12 col-xl-10 d-flex mx-auto flex-column align-items-center justify-content-center">
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
                 <PersonPinIcon sx={{ fontSize: "100px" }} />
-                <h2 className="h1 text-bold">Registrate</h2>
+                <h2 className="h1 text-bold">Restablecer contraseña</h2>
             </div>
 
             <div className='col-11 col-md-8 col-lg-6 col-xl-4 col-xxl-3 mx-auto'>
@@ -92,18 +78,18 @@ const Register = () => {
                     <div>
                         <ToastContainer />
                     </div>
-                    <TextField label="username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
                     <TextField label="Email" variant="standard" onChange={(e) => setEmail(e.target.value)} />
-                    <TextField type='password' autoSave='false' label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
-                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : 'Register'}</Button>
+                    <Button color="primary" variant="outlined" className='mt-3' type='submit'>{loading ?<CircularProgress  size={20} color="secondary" />  : 'Restablecer'}</Button>
                 </form>
                 <p className="text-center">
-                    Ya tenes una cuenta?
-                    <Link to="/login" className='ms-1' style={{ color: "#d926a9" }}>Logeate</Link>
+                    Te acordaste de tu cuenta?
+                    <Link to="/login" className='ms-1' style={{ color: "#d926a9" }}>Login</Link> |
+                    No tienes una cuenta? 
+                    <Link to="/register" className='ms-1' style={{ color: "#d926a9" }}>register</Link>
                 </p>
             </div>
         </div>
     )
 }
 
-export default Register
+export default ResetPassword

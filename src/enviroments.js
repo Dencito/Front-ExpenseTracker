@@ -5,6 +5,6 @@ export const enviroments = {
     },
     news: {
         url: process.env.REACT_APP_URL_NEWS,
-        apiKey: process.env.REACT_APP_API_KEY_NEWS
+        apiKey: "f9a948eea2cf4a61b60f108f3c9a68cd"
     }
 }
