@@ -53,3 +53,18 @@
 .overflow-hidden {
     overflow: hidden !important;
 }
+
+.btn-hovers:first-child {
+color: #e61b91;
+}
+
+.btn-hovers:last-child {
+color: #15eebb;
+}
+
+.btn-hovers:hover {
+    transition:  all .4s;
+    cursor: pointer;
+    color: #000000;
+    transform: scale(1.2);
+}

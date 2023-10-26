@@ -7,6 +7,7 @@ import moment from "moment"
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeIcon from '@mui/icons-material/Mode';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 const Expenses = () => {
   const { setUser } = useContext(UserProvider);
@@ -19,6 +20,7 @@ const Expenses = () => {
   const [modalOpenEdit, setModalOpenEdit] = useState(false)
   const [categories, setCategories] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [selectId, setSelectId] = useState(null)
   const navigate = useNavigate()
 
   const success = (title) => toast.success(title, {
@@ -122,12 +124,15 @@ const Expenses = () => {
       body: JSON.stringify(bodyOptions),
     });
     const data = await response.json()
-    setModalOpen(false)
-    setTitle("")
-    setAmount("")
-    setDate("")
-    setCategoryID("")
-    success("Gasto creado")
+    if(data.ok) {
+      success("Gasto creado")
+      setModalOpen(false)
+      setTitle("")
+      setAmount("")
+      setDate("")
+      setCategoryID("")
+    }
+    !data.ok && errorToast("No se pudo crear el gasto")
   }
   const style = {
     position: 'absolute',
@@ -226,15 +231,17 @@ const Expenses = () => {
           </div> : <div className='d-flex gap-3 overflow-auto p-3'>
             {categoryData.map((category) => (
               <Card key={category.categoryName} className="pb-1">
-                <h3 className='px-3'>{category?.categoryName}</h3>
+                <h3 className='px-3 text-center'>{category?.categoryName}</h3>
                 <div style={{ height: "500px", overflow: "auto", padding: "5px" }}>
                   {category?.categoryExpenses.map(expense => (
                     <Card key={expense.id} className='d-flex flex-column p-1 mb-1'>
-                      <span>{expense.description}</span>
-                      <span>{expense.amount.toLocaleString()}</span>
-                      <span>{moment(expense.date).format("DD.MM.YY")}</span>
-                      <DeleteIcon onClick={() => deleteExtense(expense.id)} />
-                      <ModeIcon onClick={() => {
+                      <span className='fw-bold fs-5'>{expense.description}</span>
+                      <span>{expense.amount.toLocaleString()} ARS</span>
+                      <span>{moment(expense.date).format("DD.MM.YY")} <CalendarMonthRoundedIcon/></span>
+                      <div className="d-flex justify-content-center gap-2 py-2">
+                      <DeleteIcon className='btn-hovers' onClick={() => deleteExtense(expense.id)} />
+                      <ModeIcon className='btn-hovers' onClick={() => {
+                        setSelectId(expense.id);
                         setTitle(expense.description)
                         setDate(moment(expense.date).format("YYYY-MM-DD"))
                         setAmount(expense.amount)
@@ -271,11 +278,12 @@ const Expenses = () => {
                                   <MenuItem key={category.id} value={category.id}>{category.categoryName}</MenuItem>
                                 ))}
                               </Select>
-                              <Button color="primary" variant="outlined" onClick={() => editExpense(expense.id)}>Editar</Button>
+                              <Button color="primary" variant="outlined" onClick={() => editExpense(selectId)}>Editar</Button>
                             </div>
                           </Box>
                         </Fade>
                       </Modal>
+                      </div>
                     </Card>
                   ))}
                 </div>
