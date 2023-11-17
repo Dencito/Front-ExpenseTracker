@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 
 const ResetPassword = () => {
+    document.title = "Resetear contraseña"
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false)
 

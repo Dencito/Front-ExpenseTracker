@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 
 const Register = () => {
+    document.title = "Registrate en nuestra App"
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")

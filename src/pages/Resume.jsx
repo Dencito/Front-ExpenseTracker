@@ -9,6 +9,7 @@ import PieChart from '../components/PieGraph';
 import { CircularProgress } from '@mui/material';
 
 const Resume = () => {
+  document.title = "Tu resumen"
   const { setUser } = useContext(UserProvider);
   const [loading, setLoading] = useState(false)
   const [expenses, setExpenses] = useState(null)

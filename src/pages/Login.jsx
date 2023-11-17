@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { enviroments } from '../enviroments';
 
 const Login = () => {
+    document.title = "Inicio de sesión"
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)

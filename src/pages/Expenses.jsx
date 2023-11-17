@@ -17,6 +17,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 const { Meta } = Card;
 
 const Expenses = () => {
+  document.title = "Tus Gastos"
   const { setUser } = useContext(UserProvider);
   const [title, setTitle] = useState("")
   const [categoryID, setCategoryID] = useState(0)

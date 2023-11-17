@@ -7,6 +7,7 @@ import ImageChange from '../components/ImageChange'
 import { useNavigate } from 'react-router-dom'
 
 const Settings = () => {
+    document.title = "Tu configuración"
     const { setUser } = useContext(UserProvider);
     const [updateState, setUpdateState] = useState(true)
     const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ const Settings = () => {
                     },
                     body: JSON.stringify({ token }),
                 });
-                const { data} = await response.json()
+                const { data } = await response.json()
                 const user = data.user
                 setUser(data)
                 setUsername(user?.username)
@@ -47,7 +48,7 @@ const Settings = () => {
                 setLoading(false)
             } catch (error) {
                 console.log(error)
-                
+
                 setTimeout(() => {
                     window.localStorage.removeItem("token")
                     setUser(false)
@@ -137,7 +138,7 @@ const Settings = () => {
                         {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField disabled={true} label="Emaiil:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setEmail(e.target.value)} defaultValue={email} error={(!email.includes("@") || !email.includes("."))} helperText={(!email.includes("@") || !email.includes(".")) && "El Email debe contener @ y ."} />}
                     </div>
                     <div className="col-5">
-                        {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField type='number' disabled={updateState} label="Telefono:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setPhone(e.target.value)} defaultValue={phone} error={phone?.length !== 10} helperText={phone?.length !== 10 && "El telefono debe de tener 10 digitos."} />}
+                        {loading ? <Skeleton animation="wave" variant="rect" height={40} /> : <TextField type='number' disabled={updateState} label="Telefono:" sx={{ width: "100%" }} variant="standard" onChange={(e) => setPhone(e.target.value)} defaultValue={phone} error={phone?.length !== 10 && !updateState} helperText={(phone?.length !== 10 && !updateState) && "El telefono debe de tener 10 digitos."} />}
                     </div>
                 </div>
                 <div className="col-12 d-flex justify-content-between">
