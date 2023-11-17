@@ -89,10 +89,10 @@ const Resume = () => {
           <Link className='link' to="/gastos" style={{ color: "#d926a9" }}>Crear Gasto</Link>
         </div> : <div>
           <ChatBotComponent />
-          <div style={{ width: "800px", height: "600px" }}>
+          <div className='overflow-auto' style={{ width: "800px", height: "600px" }}>
             <GraphLine filtro="month" />
           </div>
-          <div style={{ width: "800px", height: "600px" }}>
+          <div className='overflow-auto' style={{ width: "800px", height: "600px" }}>
             <PieChart />
           </div>
         </div>

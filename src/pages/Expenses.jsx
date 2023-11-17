@@ -88,14 +88,14 @@ const Expenses = () => {
         const token = window.localStorage.getItem("token");
         const filterCategory = filterQuery?.categoryId ? `&Filter=CategoryID&FilterValue=${filterQuery?.categoryId}` : ''
         const filterDateQry = filterDate?.startDate && filterDate?.endDate ? `&RangeDates.StartDate=${filterDate?.startDate}&RangeDates.EndDate=${filterDate?.endDate}` : ''
-        const response = await fetch(`${enviroments.backend.urlLocal}/expense/user/getallpaginated?PageSize=9&Page=${filterQuery?.page}${filterCategory}${filterDateQry}`, {
+        const filterOrder = "" //filterQuery?.order
+        const response = await fetch(`${enviroments.backend.urlLocal}/expense/user/getallpaginated?PageSize=9&Page=${filterQuery?.page}${filterCategory}${filterDateQry}${filterOrder}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
         });
-        console.log(`${enviroments.backend.urlLocal}/expense/user/getallpaginated?PageSize=9&Page=${filterQuery?.page}${filterCategory}${filterDate}`)
         const dataExpenses = await response.json()
         console.log(dataExpenses)
         setExpenses(dataExpenses?.data)
@@ -169,10 +169,76 @@ const Expenses = () => {
   };
 
 
+  const categoriesMock = [
+    {
+      id: 1,
+      createdAt: '2023-11-17T02:51:39.6996773',
+      lastModified: '2023-11-17T02:51:39.6997707',
+      isDeleted: false,
+      categoryName: 'Seguros',
+      color: 'blue',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 2,
+      createdAt: '2023-11-17T02:52:12.463491',
+      lastModified: '2023-11-17T02:52:12.4634946',
+      isDeleted: false,
+      categoryName: 'Entretenimiento',
+      color: 'green',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 3,
+      createdAt: '2023-11-17T02:52:31.6754549',
+      lastModified: '2023-11-17T02:52:31.6754566',
+      isDeleted: false,
+      categoryName: 'Supermercados',
+      color: 'red',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 4,
+      createdAt: '2023-11-17T02:52:43.019514',
+      lastModified: '2023-11-17T02:52:43.0195157',
+      isDeleted: false,
+      categoryName: 'Ropa',
+      color: 'purple',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 5,
+      createdAt: '2023-11-17T02:52:53.8762538',
+      lastModified: '2023-11-17T02:52:53.8762555',
+      isDeleted: false,
+      categoryName: 'Electrodomesticos',
+      color: 'orange',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 6,
+      createdAt: '2023-11-17T02:53:16.0723755',
+      lastModified: '2023-11-17T02:53:16.0723777',
+      isDeleted: false,
+      categoryName: 'Bebes',
+      color: 'pink',
+      // Otros atributos del objeto...
+    },
+    {
+      id: 7,
+      createdAt: '2023-11-17T02:53:35.2292511',
+      lastModified: '2023-11-17T02:53:35.2292528',
+      isDeleted: false,
+      categoryName: 'Servicios',
+      color: 'brown',
+      // Otros atributos del objeto...
+    }
+  ];
+
 
   const findCategory = (id) => {
-    const findCategory = categories?.find(category => category?.id === id)
-    return { ...findCategory, color: "#ff0000" }
+    const findCategory = categoriesMock?.find(category => category?.id === id)
+    return { ...findCategory}
   }
 
   const getCategoryNameAndExpenses = (id) => {
@@ -242,7 +308,9 @@ const Expenses = () => {
       </div>
     )
   }
-  const items = categories?.map(category => ({
+
+ 
+  const items = categoriesMock?.map(category => ({
     key: category?.id,
     label: (
       <button onClick={() => {
@@ -470,7 +538,7 @@ const Expenses = () => {
                           </Fade>
                         </Modal>
                         <Meta
-                          avatar={<div style={{ width: "25px", height: "25px", borderRadius: "50%", backgroundColor: "red" }}></div>}
+                          avatar={<div style={{ width: "25px", height: "25px", borderRadius: "50%", backgroundColor: findCategory(expense.categoryID).color }}></div>}
                           title={expense.description}
                           description={moment(expense.date).format("DD.MM.YYYY")}
                         />
