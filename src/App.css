@@ -68,3 +68,10 @@ color: #15eebb;
     color: #000000;
     transform: scale(1.2);
 }
+
+
+.btn-options:hover {
+    transition:  all .4s !important;
+    cursor: pointer;
+    transform: scale(1.2);
+}

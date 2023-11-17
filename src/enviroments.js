@@ -1,7 +1,7 @@
 export const enviroments = {
     backend: {
-        url: "https://ptq0f8t6m2.execute-api.us-east-1.amazonaws.com/dev",
-        urlLocal: "https://ptq0f8t6m2.execute-api.us-east-1.amazonaws.com/dev",
+        url: "https://zmyds2t5da.execute-api.us-east-1.amazonaws.com/prd",
+        urlLocal: "https://zmyds2t5da.execute-api.us-east-1.amazonaws.com/prd",
     },
     news: {
         url: process.env.REACT_APP_URL_NEWS,
