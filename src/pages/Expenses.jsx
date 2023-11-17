@@ -337,6 +337,13 @@ const Expenses = () => {
               </Dropdown>
 
               <div className='d-flex flex-column gap-1'>
+              <Button color="primary" variant="outlined" onClick={() => {
+                setFilterDate({})
+                setFilterQuery({
+                  page: 1,
+                })
+                setFilterLoading(filterLoading + 1)
+                }}>Borrar todos los filtros</Button>
                 <div className='d-flex gap-3'>
                   <TextField type='date' variant="standard" onChange={(e) => {
                     setFilterDate({ ...filterDate, startDate: e.target.value })
@@ -403,6 +410,11 @@ const Expenses = () => {
             </div>
               :
               <div className='d-flex gap-3 flex-wrap py-3'>
+                {(!expenses?.query?.length) && (
+                    <h1>
+                      {filterQuery.categoryId ? "No tenes ningun gasto en esa categoria" : "No tenes ningun gasto en ese rango de fechas"}
+                    </h1>
+                )}
                 {
                   expenses?.query?.map(expense => (
                     <div className='col-12 col-md-6 col-lg-3 mx-auto' key={expense.id}>
